@@ -9,6 +9,8 @@ function App() {
 
   let [appoinmentList,setAppoinmentList] = useState([]);
   let [query, setQuery] = useState("");
+  let [sortBy , setSortBy] =useState("petName");
+  let [orderBy, setOrderBy] = useState("asc");
 
   const filteredAppoinmentts = appoinmentList.filter(
     item => {
@@ -19,7 +21,12 @@ function App() {
 
       )
     }
-  )
+  ).sort((a,b) => {
+    let order = (orderBy === 'asc') ? 1 : -1;
+    return(
+      a[sortBy].toLowerCase() < b[sortBy].toLowerCase()  ? -1 * order : 1 * order
+    )
+  })
 
   //using fetch method to fetch the data
   const fetchData = useCallback(
